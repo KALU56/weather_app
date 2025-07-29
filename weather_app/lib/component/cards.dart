@@ -11,17 +11,7 @@ class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      Column(
-                   children: [
-                      Icon(
-                          Icons.cloud,
-              
-                      ),
-                    Text('now'),
-                    Text('29'),
-
-                  ],
-                )
+      
     );
   }
 }
