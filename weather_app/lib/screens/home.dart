@@ -58,6 +58,66 @@ class _HomeState extends State<Home> {
       FocusScope.of(context).unfocus(); 
     }
   }
+    IconData getWeatherIcon(String mainWeather) {
+    switch (mainWeather.toLowerCase()) {
+      case 'clear':
+        return Icons.wb_sunny;
+      case 'clouds':
+        return Icons.cloud;
+      case 'rain':
+        return Icons.beach_access;
+      case 'snow':
+        return Icons.ac_unit;
+      case 'thunderstorm':
+        return Icons.flash_on;
+      case 'drizzle':
+        return Icons.grain;
+      case 'mist':
+      case 'fog':
+      case 'haze':
+      case 'smoke':
+      case 'dust':
+        return Icons.blur_on;
+      default:
+        return Icons.help_outline;
+    }
+  }
+    Widget buildWeatherInfo(IconData icon, String value, String label) {
+    return Column(
+      children: [
+        Icon(icon, color: const Color.fromARGB(255, 99, 203, 245)),
+        Text(value, style: const TextStyle(color: Colors.white)),
+        Text(label, style: const TextStyle(color: Colors.white)),
+      ],
+    );
+  }
+    List<Widget> getWeatherDetailsWidgets(Map<String, dynamic> data) {
+    final main = data['weather'][0]['main'].toLowerCase();
+
+    if (main == 'rain' || main == 'drizzle' || main == 'thunderstorm') {
+      return [
+        buildWeatherInfo(Icons.beach_access, '${data['rain']?['1h'] ?? 0} mm', 'Rain'),
+        buildWeatherInfo(Icons.air, '${data['wind']['speed']} km/h', 'Wind'),
+        buildWeatherInfo(Icons.opacity, '${data['main']['humidity']}%', 'Humidity'),
+      ];
+    } else if (main == 'clear') {
+      return [
+        buildWeatherInfo(Icons.wb_sunny, 'High', 'UV'),
+        buildWeatherInfo(Icons.opacity, '${data['main']['humidity']}%', 'Humidity'),
+        buildWeatherInfo(Icons.air, '${data['wind']['speed']} km/h', 'Wind'),
+      ];
+    } else if (main == 'clouds') {
+      return [
+        buildWeatherInfo(Icons.cloud, 'Cloudy', 'Sky'),
+        buildWeatherInfo(Icons.opacity, '${data['main']['humidity']}%', 'Humidity'),
+        buildWeatherInfo(Icons.air, '${data['wind']['speed']} km/h', 'Wind'),
+      ];
+    } else {
+      return [
+        buildWeatherInfo(Icons.info, 'N/A', 'Info'),
+      ];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,15 +153,14 @@ class _HomeState extends State<Home> {
               ),
              onSubmitted: (_) => _search(),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 45),
              if (isLoading) 
               const CircularProgressIndicator(color: Colors.white) 
             else if (errorMessage != null) 
               Text(errorMessage!, style: const TextStyle(color: Colors.red, fontSize: 18)) 
             else if (weatherData != null) 
 
-             Expanded(
-                child: Column(
+            Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
@@ -110,8 +169,8 @@ class _HomeState extends State<Home> {
                     ),
                     const SizedBox(height: 10),
                     Icon(
-                      Icons.cloud, // You can replace with dynamic icons based on weather condition
-                      size: 100,
+                      getWeatherIcon(weatherData!['weather'][0]['main']),
+                      size: 70,
                       color: const Color.fromARGB(255, 99, 203, 245),
                     ),
                     const SizedBox(height: 10),
@@ -126,33 +185,18 @@ class _HomeState extends State<Home> {
                     const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            const Icon(Icons.opacity, color: Color.fromARGB(255, 99, 203, 245)),
-                            Text('${weatherData!['main']['humidity']}%', style: const TextStyle(color: Colors.white)),
-                            const Text('Humidity', style: TextStyle(color: Colors.white)),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            const Icon(Icons.beach_access, color: Color.fromARGB(255, 99, 203, 245)),
-                            Text('${weatherData!['rain']?['1h'] ?? 0} mm', style: const TextStyle(color: Colors.white)),
-                            const Text('Rain', style: TextStyle(color: Colors.white)),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            const Icon(Icons.air, color: Color.fromARGB(255, 99, 203, 245)),
-                            Text('${weatherData!['wind']['speed']} km/h', style: const TextStyle(color: Colors.white)),
-                            const Text('Wind', style: TextStyle(color: Colors.white)),
-                          ],
-                        ),
-                      ],
+                      children: getWeatherDetailsWidgets(weatherData!),
                     ),
                   ],
                 ),
-              )
+            Expanded(
+              child: Row(
+                te
+
+
+              ),
+            )
+            
             else
               const Expanded(
                 child: Center(
