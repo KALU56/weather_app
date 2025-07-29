@@ -41,6 +41,65 @@ class _HomeState extends State<Home> {
               ),
             
             ),
+
+
+            Text('Addis abeba, Ethiopa'),
+            Icon(
+             Icons.cloud,
+              size: 120,
+              color: const Color.fromARGB(255, 99, 203, 245),
+              ),
+            Text('29 c'),
+            Text('expect high rain today'),
+            Row(
+              children: [
+                Column(
+                  children: [
+                      Icon(
+                          Icons.cloud,
+              
+                          color: const Color.fromARGB(255, 99, 203, 245),
+                      ),
+                    Text('24%'),
+                    Text('Humidity'),
+
+                  ],
+                ),
+                Column(
+                  children: [
+                      Icon(
+                          Icons.cloud,
+              
+                          color: const Color.fromARGB(255, 99, 203, 245),
+                      ),
+                    Text('24%'),
+                    Text('rain'),
+
+                  ],
+                ),
+                Column(
+                  children: [
+                      Icon(
+                          Icons.cloud,
+              
+                          color: const Color.fromARGB(255, 99, 203, 245),
+                      ),
+                    Text('13km/h'),
+                    Text('wind'),
+
+                  ],
+                )
+
+              ],
+            ),
+            Text('Hourly Forencast'),
+            Row(
+              children: [
+               
+
+              ],
+
+            ),
           ],
         ),
       ),
