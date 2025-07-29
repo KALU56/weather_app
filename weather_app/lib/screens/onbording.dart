@@ -13,24 +13,26 @@ class _OnbordingState extends State<Onbording> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
 
-  final List<Map<String, String>> onboardingData = [
-    {
-      'title': 'Team Up For Success',
-      'desc':
-          'Team Up For Success Team Up For Success Team Up For Success Team Up For Success Team Up For Success ',
-      'image': Assets.image2,
+  final List<Map<String, dynamic>> onboardingData = [
+     {
+      'icon': Icons.wb_sunny_rounded,
+      'title': 'Live Weather',
+      'desc': 'Real-time updates for current weather conditions.',
     },
     {
-      'title': 'User-Friendly at its Core',
-      'desc':
-          'Team Up For Success Team Up For Success Team Up For Success Team Up For Success vvTeam Up For Success .',
-      'image': Assets.image3,
+      'icon': Icons.cloud_outlined,
+      'title': 'Accurate Forecasts',
+      'desc': 'Hourly and daily predictions to plan ahead.',
     },
     {
-      'title': 'Easy Task Creation',
-      'desc':
-          'Team Up For Success Team Up For Success vvvTeam Up For Success Team Up For Success .',
-      'image': Assets.image4,
+      'icon': Icons.location_city,
+      'title': 'Multiple Cities',
+      'desc': 'Save and switch between your favorite locations.',
+    },
+    {
+      'icon': Icons.settings,
+      'title': 'Customization',
+      'desc': 'Choose between °C/°F and light/dark themes.',
     },
   ];
 
@@ -112,7 +114,13 @@ class _OnbordingState extends State<Onbording> {
                   padding: const EdgeInsets.all(24.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Image.asset(item['image']!, height: 300)],
+                    children: [
+                      Icon(
+                        item['icon'],
+                        size: 120,
+                        color: const Color.fromARGB(255, 99, 203, 245),
+                      ),
+                    ],
                   ),
                 );
               },
@@ -171,7 +179,7 @@ class _OnbordingState extends State<Onbording> {
               ),
               onPressed: _nextPage,
               child: Text(
-                _currentIndex == onboardingData.length - 1 ? 'Home' : 'Next',
+                _currentIndex == onboardingData.length - 1 ? 'Finish' : 'Next',
               ),
             ),
           ),
